@@ -1,5 +1,5 @@
 # basic-electron-app
-This is a very basic application that allows you to convert videos from MP4 format to MKV
+Windows Only! This is a very basic application that allows you to convert videos from MP4 format to MKV
 
 Install NodeJS: https://nodejs.org/en/
 
