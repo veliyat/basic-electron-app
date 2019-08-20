@@ -3,8 +3,14 @@ This is a very basic application that allows you to convert videos from MP4 form
 
 Install NodeJS: https://nodejs.org/en/
 
-Go into the root directory of the project and run
+Check if nodeJS is working:
+> node -v
+
+Check if npm is working:
+> npm -v
+
+Go into the root directory of the project and run:
 > npm install
 
-Then run 
+Then run:
 > npm start
