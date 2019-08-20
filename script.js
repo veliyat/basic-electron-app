@@ -13,41 +13,46 @@ fileForm.onsubmit = (e) => {
 
   const file = sourceFile.files[0]
 
-  const childProcessProbe = spawn(
-    path.join(__dirname + '/lib/ffmpeg/bin/ffprobe'),
-    ['-count_frames', file.path]
-  )
-
-  progress.classList.add('progress-bar-animated')
-  progress.innerHTML = 'Processing...'
+  if (file.type !== 'video/mp4') {
+    alert('Please select MP4 files only.')
+  } else {
 
 
-  childProcessProbe.stdout.on('data', (output) => {
-    console.log(output.toString())
-  })
+    // const childProcessProbe = spawn(
+    //   path.join(__dirname + '/lib/ffmpeg/bin/ffprobe'),
+    //   ['-count_frames', file.path]
+    // )
 
-  childProcessProbe.stderr.on('data', (output) => {
-    console.log(output.toString())
-  })
+    // childProcessProbe.stdout.on('data', (output) => {
+    //   console.log(output.toString())
+    // })
 
-  const childProcessFF = spawn(
-    path.join(__dirname + '/lib/ffmpeg/bin/ffmpeg'),
-    ['-y', '-i', file.path, path.join(__dirname + '/out/out.mkv')]
-  )
+    // childProcessProbe.stderr.on('data', (output) => {
+    //   console.log(output.toString())
+    // })
 
-  childProcessFF.stdout.on('data', (output) => {
-    console.log(output.toString())
-  })
+    progress.classList.add('progress-bar-animated')
+    progress.innerHTML = 'Processing...'
 
-  childProcessFF.stderr.on('data', (data) => {
-    console.log(data.toString());
-  });
+    const childProcessFF = spawn(
+      path.join(__dirname + '/lib/ffmpeg/bin/ffmpeg'),
+      ['-y', '-i', file.path, path.join(__dirname + '/out/out.mkv')]
+    )
 
-  childProcessFF.on('exit', (code) => {
-    if (code === 0) {
-      download.classList.remove('disabled')
-      progress.classList.remove('progress-bar-animated')
-      progress.innerHTML = ''
-    }
-  });
+    childProcessFF.stdout.on('data', (output) => {
+      console.log(output.toString())
+    })
+
+    childProcessFF.stderr.on('data', (data) => {
+      console.log(data.toString());
+    });
+
+    childProcessFF.on('exit', (code) => {
+      if (code === 0) {
+        download.classList.remove('disabled')
+        progress.classList.remove('progress-bar-animated')
+        progress.innerHTML = ''
+      }
+    });
+  }
 }
